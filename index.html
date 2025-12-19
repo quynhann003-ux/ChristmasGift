@@ -124,7 +124,7 @@
             box-shadow: 0 0 10px rgba(255,0,0,0.5);
         }
         
-        #error-log { display: none; position: absolute; top: 0; left: 0; color: red; background: rgba(0,0,0,0.8); z-index: 999; padding: 10px; }
+        #error-log { display: none; position: absolute; top: 0; left: 0; color: pink; background: rgba(0,0,0,0.8); z-index: 999; padding: 10px; }
     </style>
 </head>
 <body>
@@ -239,7 +239,7 @@
 
         const textures = {
             gold: createCustomTexture('gold_glow'),
-            red: createCustomTexture('pink_light'),
+            pink: createCustomTexture('pink_light'),
             gift: createCustomTexture('gift_red')
         };
 
@@ -257,7 +257,7 @@
         };
 
         let scene, camera, renderer;
-        let groupGold, groupRed, groupGift; // Vandiep
+        let groupGold, groupPink, groupGift; // Vandiep
         let photoMeshes = [];    
         let titleMesh, starMesh;
         
@@ -292,7 +292,7 @@
 
             // Vandiep
             groupGold = createParticleSystem('gold', CONFIG.goldCount, 2.0);
-            groupRed = createParticleSystem('pink', CONFIG.redCount, 3.5); // Vandiep
+            groupPink = createParticleSystem('pink', CONFIG.PinkCount, 2.5); // Vandiep
             groupGift = createParticleSystem('gift', CONFIG.giftCount, 3.0); // Vandiep
 
             createPhotos();
@@ -502,7 +502,7 @@
 
             // Vandiep
             updateParticleGroup(groupGold, state, speed, handRotY, time, false);
-            updateParticleGroup(groupRed, state, speed, handRotY, time, true); // Vandiep
+            updateParticleGroup(groupPink, state, speed, handRotY, time, true); // Vandiep
             updateParticleGroup(groupGift, state, speed, handRotY, time, false);
 
             // Vandiep
@@ -515,10 +515,10 @@
             if (state === 'TREE') {
                 titleMesh.visible = true; starMesh.visible = true;
                 groupGold.visible = true; // Show all particles in TREE state
-                groupRed.visible = true;
+                groupPink.visible = true;
                 groupGift.visible = true;
                 groupGold.renderOrder = 0;
-                groupRed.renderOrder = 0;
+                groupPink.renderOrder = 0;
                 groupGift.renderOrder = 0;
                 titleMesh.scale.lerp(new THREE.Vector3(1,1,1), 0.1);
                 starMesh.rotation.z -= 0.02;
@@ -527,10 +527,10 @@
             } else if (state === 'EXPLODE') {
                 titleMesh.visible = false; starMesh.visible = false;
                 groupGold.visible = true; // Show all particles in EXPLODE state
-                groupRed.visible = true;
+                groupPink.visible = true;
                 groupGift.visible = true;
                 groupGold.renderOrder = 0;
-                groupRed.renderOrder = 0;
+                groupPink.renderOrder = 0;
                 groupGift.renderOrder = 0;
                 
                 const baseAngle = groupGold.rotation.y; 
@@ -561,12 +561,12 @@
             } else if (state === 'PHOTO') {
                 // Keep particles visible but ensure photo renders on top
                 groupGold.visible = true;
-                groupRed.visible = true;
+                groupPink.visible = true;
                 groupGift.visible = true;
                 
                 // Set render order so photo appears in front of particles
                 groupGold.renderOrder = 0;
-                groupRed.renderOrder = 0;
+                groupPink.renderOrder = 0;
                 groupGift.renderOrder = 0;
                 
                 photoMeshes.forEach((mesh, i) => {
