@@ -215,11 +215,12 @@
                 grd.addColorStop(1, 'rgba(0,0,0,0)');
                 ctx.fillStyle = grd; ctx.fillRect(0,0,128,128);
 
-            } else if (type === 'red_light') {
+            } else if (type === 'pink_light') {
                 // Vandiep
                 const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, 50);
-                grd.addColorStop(0, '#FFAAAA'); 
-                grd.addColorStop(0.3, '#FF0000'); 
+                grd.addColorStop(0, '#FFFFFF'); 
+                grd.addColorStop(0.3, '#FFB6C1');
+                grd.addColorStop(0.6, '#FF69B4');
                 grd.addColorStop(1, 'rgba(0,0,0,0)');
                 ctx.fillStyle = grd; ctx.fillRect(0,0,128,128);
 
@@ -238,7 +239,7 @@
 
         const textures = {
             gold: createCustomTexture('gold_glow'),
-            red: createCustomTexture('red_light'),
+            red: createCustomTexture('pink_light'),
             gift: createCustomTexture('gift_red')
         };
 
@@ -247,7 +248,7 @@
         // ==========================================
         const CONFIG = {
             goldCount: 2000,    // Hạt vàng (reduced for better performance)
-            redCount: 700,      // Số lượng đèn đỏ (reduced for better performance)
+            pinkCount: 700,      // Số lượng đèn hồng (reduced for better performance)
             giftCount: 175,      // Số lượng hộp quà (reduced for better performance)
             explodeRadius: 100,  
             photoOrbitRadius: 25,
@@ -291,7 +292,7 @@
 
             // Vandiep
             groupGold = createParticleSystem('gold', CONFIG.goldCount, 2.0);
-            groupRed = createParticleSystem('red', CONFIG.redCount, 3.5); // Vandiep
+            groupRed = createParticleSystem('pink', CONFIG.redCount, 3.5); // Vandiep
             groupGift = createParticleSystem('gift', CONFIG.giftCount, 3.0); // Vandiep
 
             createPhotos();
@@ -359,7 +360,7 @@
         }
 
         function createPhotos() {
-            const borderMat = new THREE.MeshBasicMaterial({ color: 0xFFD700 }); 
+            const borderMat = new THREE.MeshBasicMaterial({ color: 0xFFFFFF }); 
             const baseHeight = 8; // Base height for all images
 
             for(let i=0; i<photoFiles.length; i++) {
@@ -370,7 +371,7 @@
                 
                 // Border should match the image aspect ratio with a small margin
                 const borderMargin = 0.5;
-                const borderGeo = new THREE.PlaneGeometry(width + borderMargin * 2, baseHeight + borderMargin * 2);
+                const borderGeo = new THREE.PlaneGeometry(width + borderMargin * 1, baseHeight + borderMargin * 1);
                 
                 const mat = new THREE.MeshBasicMaterial({ 
                     map: photoTextures[i], side: THREE.DoubleSide 
@@ -395,7 +396,7 @@
             const ctx = canvas.getContext('2d');
             ctx.font = '800 90px "Be Vietnam Pro", sans-serif';
             ctx.fillStyle = '#FFD700'; ctx.textAlign = 'center';
-            ctx.shadowColor = "#FF0000"; ctx.shadowBlur = 40; 
+            ctx.shadowColor = "#FFFFFF"; ctx.shadowBlur = 40; 
             ctx.fillText("MERRY CHRISTMAS", 512, 130);
             
             const tex = new THREE.CanvasTexture(canvas);
@@ -408,7 +409,7 @@
             const starCanvas = document.createElement('canvas');
             starCanvas.width = 128; starCanvas.height = 128;
             const sCtx = starCanvas.getContext('2d');
-            sCtx.fillStyle = "#FFFF00"; sCtx.shadowColor="#FFF"; sCtx.shadowBlur=20;
+            sCtx.fillStyle = "#FFFF00"; sCtx.shadowColor="#FFF"; sCtx.shadowBlur=30;
             sCtx.beginPath();
             const cx=64, cy=64, outer=50, inner=20;
             for(let i=0; i<5; i++){
@@ -418,8 +419,8 @@
             sCtx.closePath(); sCtx.fill();
             const starTex = new THREE.CanvasTexture(starCanvas);
             const starMat = new THREE.MeshBasicMaterial({ map: starTex, transparent: true, blending: THREE.AdditiveBlending });
-            starMesh = new THREE.Mesh(new THREE.PlaneGeometry(12, 12), starMat);
-            starMesh.position.set(0, CONFIG.treeHeight/2 + 2, 0);
+            starMesh = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), starMat);
+            starMesh.position.set(0, CONFIG.treeHeight/2 + 6, 0);
             scene.add(starMesh);
         }
 
