@@ -130,20 +130,20 @@
 <body>
     <div id="error-log"></div>
     <div id="intro-screen">
-        <img id="start-banner" src="start banner.jpg" alt="Christmas Banner">
-        <div class="badge">🎄 GIÁNG SINH AN LÀNH 🎄</div>
-        <button id="btnStart" onclick="startSystem()">BẮT ĐẦU</button>
+        <img id="start-banner" src="christmasbanner.jpg" alt="Christmas Banner">
+        <div class="badge">🎄Giáng Sinh An Lành🎄</div>
+        <button id="btnStart" onclick="startSystem()">OPEN GIFT</button>
     </div>
     <div id="loading-container">
         <div id="loading-bar-container">
             <div id="loading-bar"></div>
         </div>
-        <div id="loading-text">Đang khởi tạo camera...</div>
+        <div id="loading-text">Loading...</div>
     </div>
     <div id="ui-layer">
-        <div id="status" class="badge">🎄 GIÁNG SINH AN LÀNH 🎄</div>
+        <div id="status" class="badge">🎄Merry Christmas🎄</div>
         <div class="guide">
-            🖐 <b>Xòe:</b> Bung Quà & Đèn &nbsp;|&nbsp; ✌️ <b>Say Hi:</b> Xem ảnh &nbsp;|&nbsp; ✊ <b>Nắm:</b> Thu nhỏ cây
+            🖐 <b>Open</b> Explore &nbsp;|&nbsp; ✌️ <b>Say Hi:</b> Take close look &nbsp;|&nbsp; ✊ <b>Hold:</b> Christmas Tree
         </div>
     </div>
 
@@ -160,7 +160,7 @@
         bgMusic.loop = true; bgMusic.volume = 0.6;
 
         const loader = new THREE.TextureLoader();
-        const photoFiles = ['./1.jpg', './2.jpg', './3.jpg', './4.jpg', './5.jpg', './6.jpg', './7.jpg', ./8.jpg', './9.jpg', './10.jpg', './11.jpg', './12.jpg', './13.jpg', './14.jpg', './15.jpg', './16.jpg', './17.jpg', './18.jpg', './19.jpg', './20.jpg', './21.jpg', './22.jpg', './23.jpg'];
+        const photoFiles = ['./1.jpg', './2.jpg', './3.jpg', './4.jpg', './5.jpg', './6.jpg', './7.jpg', './8.jpg', './9.jpg', './10.jpg', './11.jpg', './12.jpg', './13.jpg', './14.jpg', './15.jpg', './image16.jpg', './17.jpg', './18.jpg', './19.jpg', './20.jpg', './21.jpg, './22.jpg, './23.jpg'];
         const photoTextures = [];
         const photoAspectRatios = []; // Store aspect ratios for each image
         const photoMeshesRefs = []; // Store mesh references for updating geometries
@@ -246,10 +246,10 @@
         // 2. Vandiep
         // ==========================================
         const CONFIG = {
-            goldCount: 1000,    // Hạt vàng (reduced for better performance)
-            redCount: 150,      // Số lượng đèn đỏ (reduced for better performance)
-            giftCount: 75,      // Số lượng hộp quà (reduced for better performance)
-            explodeRadius: 65,  
+            goldCount: 2000,    // Hạt vàng (reduced for better performance)
+            redCount: 700,      // Số lượng đèn đỏ (reduced for better performance)
+            giftCount: 250,      // Số lượng hộp quà (reduced for better performance)
+            explodeRadius: 100,  
             photoOrbitRadius: 25,
             treeHeight: 70,
             treeBaseRadius: 35
@@ -290,9 +290,9 @@
             container.appendChild(renderer.domElement);
 
             // Vandiep
-            groupGold = createParticleSystem('gold', CONFIG.goldCount, 2.0);
-            groupRed = createParticleSystem('red', CONFIG.redCount, 3.5); // Vandiep
-            groupGift = createParticleSystem('gift', CONFIG.giftCount, 3.0); // Vandiep
+            groupGold = createParticleSystem('gold', CONFIG.goldCount, 3.0);
+            groupRed = createParticleSystem('red', CONFIG.redCount, 1.5); // Vandiep
+            groupGift = createParticleSystem('gift', CONFIG.giftCount, 2.0); // Vandiep
 
             createPhotos();
             createDecorations();
@@ -396,7 +396,7 @@
             ctx.font = '800 90px "Be Vietnam Pro", sans-serif';
             ctx.fillStyle = '#FFD700'; ctx.textAlign = 'center';
             ctx.shadowColor = "#FF0000"; ctx.shadowBlur = 40; 
-            ctx.fillText("MERRY CHRISTMAS", 512, 130);
+            ctx.fillText("THE WARMEST TREE", 512, 130);
             
             const tex = new THREE.CanvasTexture(canvas);
             const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, blending: THREE.AdditiveBlending });
@@ -418,8 +418,8 @@
             sCtx.closePath(); sCtx.fill();
             const starTex = new THREE.CanvasTexture(starCanvas);
             const starMat = new THREE.MeshBasicMaterial({ map: starTex, transparent: true, blending: THREE.AdditiveBlending });
-            starMesh = new THREE.Mesh(new THREE.PlaneGeometry(12, 12), starMat);
-            starMesh.position.set(0, CONFIG.treeHeight/2 + 2, 0);
+            starMesh = new THREE.Mesh(new THREE.PlaneGeometry(17, 17), starMat);
+            starMesh.position.set(0, CONFIG.treeHeight/2 + 6, 0);
             scene.add(starMesh);
         }
 
@@ -730,11 +730,11 @@
 
                     // Update status display
                     if (state === 'TREE') {
-                        statusDiv.innerText = "✊ Thu Cây Thông"; statusDiv.style.color = "#FFD700";
+                        statusDiv.innerText = "✊ Christmas Tree"; statusDiv.style.color = "#FFD700";
                     } else if (state === 'PHOTO') {
-                        statusDiv.innerText = "✌️ Xem Ảnh"; statusDiv.style.color = "#00FFFF";
+                        statusDiv.innerText = "✌️ Photo"; statusDiv.style.color = "#00FFFF";
                     } else {
-                        statusDiv.innerText = "🖐 Bung Quà & Ảnh"; statusDiv.style.color = "#FFA500";
+                        statusDiv.innerText = "🖐 Open"; statusDiv.style.color = "#FFA500";
                     }
                 } else {
                     // Hand lost - maintain state for 2 seconds before resetting
@@ -755,11 +755,11 @@
                         stateChangeCounter = 0;
                         lastState = 'TREE';
                         handVelocity = 0; // Reset velocity
-                        statusDiv.innerText = "🎄 GIÁNG SINH AN LÀNH 🎄"; statusDiv.style.color = "#FFF";
+                        statusDiv.innerText = "🎄 Merry Christmas 🎄"; statusDiv.style.color = "#FFF";
                     } else {
                         // Keep current state and show warning
                         if (state !== 'TREE') {
-                            statusDiv.innerText = "⚠️ Đưa tay vào khung hình"; statusDiv.style.color = "#FFA500";
+                            statusDiv.innerText = "Give me your hand"; statusDiv.style.color = "#FFA500";
                         }
                     }
                     // Keep last handX position so rotation continues smoothly
@@ -777,7 +777,7 @@
             cameraUtils.start().catch((error) => {
                 // Handle camera initialization error
                 clearInterval(progressInterval);
-                loadingText.textContent = 'Lỗi khởi tạo camera. Vui lòng thử lại.';
+                loadingText.textContent = 'Try again';
                 loadingText.style.color = '#FF4444';
                 console.error('Camera error:', error);
             });
