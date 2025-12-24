@@ -215,11 +215,11 @@
                 grd.addColorStop(1, 'rgba(0,0,0,0)');
                 ctx.fillStyle = grd; ctx.fillRect(0,0,128,128);
 
-            } else if (type === 'red_light') {
+            } else if (type === 'pink_light') {
                 // Vandiep
                 const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, 50);
-                grd.addColorStop(0, '#FFAAAA'); 
-                grd.addColorStop(0.3, '#FF0000'); 
+                grd.addColorStop(0, '#FFC0CB'); 
+                grd.addColorStop(0.3, '#FF69B4'); 
                 grd.addColorStop(1, 'rgba(0,0,0,0)');
                 ctx.fillStyle = grd; ctx.fillRect(0,0,128,128);
 
@@ -246,9 +246,9 @@
         // 2. Vandiep
         // ==========================================
         const CONFIG = {
-            goldCount: 2000,    // Hạt vàng (reduced for better performance)
-            redCount: 700,      // Số lượng đèn đỏ (reduced for better performance)
-            giftCount: 250,      // Số lượng hộp quà (reduced for better performance)
+            goldCount: 2000,  
+            redCount: 1000,     
+            giftCount: 250,      
             explodeRadius: 100,  
             photoOrbitRadius: 25,
             treeHeight: 70,
@@ -359,7 +359,7 @@
         }
 
         function createPhotos() {
-            const borderMat = new THREE.MeshBasicMaterial({ color: 0xFFD700 }); 
+            const borderMat = new THREE.MeshBasicMaterial({ color: 0xFFB6C1 }); 
             const baseHeight = 8; // Base height for all images
 
             for(let i=0; i<photoFiles.length; i++) {
